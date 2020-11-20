@@ -14,19 +14,24 @@ class MemberViewset(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         ip = self.request.META['REMOTE_ADDR']
-        _user = Member.objects.get(id=self.request.user.id)
-        _user.ip_address = ip
-
-        if _user.ip_information:
-            pass
-        else:
-            r = requests.get(f'http://ip-api.com/json/{ip}')
-            _user.ip_information = json.loads(r.text)
-        
-        _user.save()
 
         if self.action == 'create':
             return NewUserSerializer
+        
+        try:
+            _user = Member.objects.get(id=self.request.user.id)
+            _user.ip_address = ip
+
+            if _user.ip_information:
+                pass
+            else:
+                r = requests.get(f'http://ip-api.com/json/{ip}')
+                _user.ip_information = json.loads(r.text)
+            
+            _user.save()
+        except:
+            pass
+        
         return UserSerializer
     
     @action(detail=True, methods=['GET'])

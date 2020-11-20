@@ -13,9 +13,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class NewUserSerializer(serializers.Serializer):
-    u = serializers.CharField(validators=[alpha_only])
-    em = serializers.CharField()
-    pw = serializers.CharField()
+    username = serializers.CharField(validators=[alpha_only])
+    email = serializers.CharField()
+    password = serializers.CharField()
     # handle = serializers.CharField()
 
     def create(self, val_data):
