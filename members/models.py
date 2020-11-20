@@ -15,7 +15,7 @@ PLATFORM_CHOICES = [
 
 
 class Member(AbstractUser):
-    handle = models.CharField(max_length=32)
+    # handle = models.CharField(max_length=32)
     is_pro = models.BooleanField(default=False)
 
     twitter = models.CharField(max_length=32, blank=True, null=True)
