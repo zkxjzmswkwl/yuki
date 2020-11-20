@@ -17,11 +17,11 @@ class MemberViewset(viewsets.ModelViewSet):
         _user = Member.objects.get(id=self.request.user.id)
         _user.ip_address = ip
 
-        if _user.information:
+        if _user.ip_information:
             pass
         else:
             r = requests.get(f'http://ip-api.com/json/{ip}')
-            _user.information = json.loads(r.text)
+            _user.ip_information = json.loads(r.text)
         
         _user.save()
 
